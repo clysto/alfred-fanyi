@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quick Look</title>
+    <style>
+      body {
+        margin: 0;
+        background-color: #202124;
+        color: #ffffff;
+      }
+      #app {
+        margin: 0;
+        display: flex;
+      }
+      .left,
+      .right {
+        font-size: 22px;
+        white-space: pre-wrap;
+        padding: 10px;
+        min-height: 100vh;
+        box-sizing: border-box;
+        font-family: sans-serif;
+        word-break: break-word;
+      }
+      .left {
+        flex: 1;
+      }
+      .right {
+        display: none;
+        border-left: 1px solid #5e6168;
+      }
+      #app.two-col .right {
+        display: unset;
+        flex: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="left"></div>
+      <div class="right"></div>
+    </div>
+    <script>
+      const app = document.querySelector('#app');
+      const left = document.querySelector('.left');
+      const right = document.querySelector('.right');
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      const params = Object.fromEntries(urlSearchParams.entries());
+      function render(params) {
+        if (params.twoCol) {
+          app.classList.add('two-col');
+          right.innerHTML = params.right;
+        }
+        left.innerHTML = params.query;
+      }
+      render(params);
+    </script>
+  </body>
+</html>
